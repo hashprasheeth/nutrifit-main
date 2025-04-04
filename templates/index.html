@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to Nutri AI Insight{% endblock %}
+
+{% block content %}
+<div class="landing-page fade-in">
+    <div class="splash-screen" id="splash-screen">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Nutri AI Insight Logo" class="pulse">
+            <h1 class="app-name">Nutri AI Insight</h1>
+        </div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <div class="hero-section slide-up" id="hero-section" style="display: none;">
+        <h1 class="fade-up">Smart Nutrition Tracking</h1>
+        <p class="subtitle fade-up">Powered by AI for personalized insights</p>
+        
+        <div class="cta-buttons">
+            <a href="{{ url_for('signup') }}" class="btn-primary fade-up">Get Started</a>
+            <a href="{{ url_for('login') }}" class="btn-secondary fade-up">Login</a>
+        </div>
+    </div>
+    
+    <div class="features slide-up" id="features-section" style="display: none; animation-delay: 0.3s;">
+        <h2 class="fade-up">Features</h2>
+        
+        <div class="feature-grid stagger-group">
+            <div class="feature-card fade-up">
+                <div class="feature-icon">📊</div>
+                <h3>Track Your Nutrition</h3>
+                <p>Log your meals and track calories, protein, carbs, and fat with ease.</p>
+            </div>
+            
+            <div class="feature-card fade-up">
+                <div class="feature-icon">💧</div>
+                <h3>Water Tracking</h3>
+                <p>Monitor your daily water intake to stay properly hydrated.</p>
+            </div>
+            
+            <div class="feature-card fade-up">
+                <div class="feature-icon">🤖</div>
+                <h3>AI Food Analysis</h3>
+                <p>Describe your meal and get automatic nutrition information.</p>
+            </div>
+            
+            <div class="feature-card fade-up">
+                <div class="feature-icon">📱</div>
+                <h3>Personalized Goals</h3>
+                <p>Get tailored nutrition goals based on your profile and fitness objectives.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const splashScreen = document.getElementById('splash-screen');
+    const heroSection = document.getElementById('hero-section');
+    const featuresSection = document.getElementById('features-section');
+    const progress = document.querySelector('.loading-progress');
+    const landingPage = document.querySelector('.landing-page');
+    
+    // Remove width limitations from container
+    const container = document.querySelector('.container');
+    if (container && landingPage) {
+        container.style.maxWidth = '100%';
+        container.style.width = '100%';
+        container.style.padding = '0';
+        container.style.overflow = 'hidden';
+    }
+    
+    // Ensure the landing page takes full width
+    if (landingPage) {
+        landingPage.style.width = '100vw';
+        landingPage.style.maxWidth = '100%';
+        landingPage.style.margin = '0';
+        landingPage.style.overflow = 'hidden';
+    }
+    
+    // Animate progress bar
+    let width = 0;
+    const interval = setInterval(function() {
+        if (width >= 100) {
+            clearInterval(interval);
+            
+            // Hide splash screen and show main content with animation
+            setTimeout(function() {
+                splashScreen.style.opacity = '0';
+                setTimeout(function() {
+                    splashScreen.style.display = 'none';
+                    
+                    // Show hero section
+                    heroSection.style.display = 'flex';
+                    heroSection.style.width = '100%';
+                    
+                    // Show features section if it exists
+                    if (featuresSection) {
+                        featuresSection.style.display = 'flex';
+                        featuresSection.style.width = '100%';
+                    }
+                    
+                    // Force a reflow to ensure the animations work
+                    heroSection.offsetHeight;
+                    if (featuresSection) featuresSection.offsetHeight;
+                    
+                    // Add show class to trigger animations
+                    heroSection.classList.add('show');
+                    if (featuresSection) featuresSection.classList.add('show');
+                    
+                    // Initialize scroll animations after splash screen
+                    initScrollAnimations();
+                    
+                    // Adjust hero section height for better page filling
+                    adjustHeroHeight();
+                }, 500);
+            }, 500);
+        } else {
+            width += 2;
+            progress.style.width = width + '%';
+        }
+    }, 30);
+    
+    // Adjust hero height on window resize
+    function adjustHeroHeight() {
+        const windowHeight = window.innerHeight;
+        const headerHeight = document.querySelector('.main-header')?.offsetHeight || 0;
+        const footerHeight = document.querySelector('.main-footer')?.offsetHeight || 0;
+        
+        // Calculate ideal hero height to fill the space
+        const idealHeight = windowHeight - headerHeight;
+        
+        // Apply height to hero section (not just min-height)
+        heroSection.style.minHeight = `${idealHeight}px`;
+        heroSection.style.height = `${idealHeight}px`;
+        
+        // Ensure child elements are properly centered
+        const heroContent = heroSection.querySelectorAll('h1, .subtitle, .cta-buttons');
+        heroContent.forEach(element => {
+            element.style.width = '100%';
+            if (element.classList.contains('cta-buttons')) {
+                element.style.justifyContent = 'center';
+            } else {
+                element.style.textAlign = 'center';
+            }
+        });
+        
+        // Make sure features section spans full width
+        if (featuresSection) {
+            featuresSection.style.width = '100%';
+            featuresSection.style.maxWidth = '100%';
+        }
+    }
+    
+    // Initialize scroll animations with IntersectionObserver
+    function initScrollAnimations() {
+        const fadeElements = document.querySelectorAll('.fade-up');
+        
+        if (fadeElements.length > 0) {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('show');
+                        // Once the animation is triggered, we don't need to observe this element anymore
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                root: null, // Use viewport as root
+                threshold: 0.1, // Trigger when 10% of the element is visible
+                rootMargin: '0px 0px -50px 0px' // Trigger slightly before the element enters the viewport
+            });
+            
+            // Observe each fade-up element
+            fadeElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+    }
+    
+    // Adjust on resize
+    window.addEventListener('resize', adjustHeroHeight);
+    
+    // Run adjustment after a slight delay to ensure DOM is fully loaded
+    setTimeout(adjustHeroHeight, 100);
+});
+</script>
+{% endblock %} 

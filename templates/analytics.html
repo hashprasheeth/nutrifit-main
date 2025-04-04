@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - NutriFy{% endblock %}
+
+{% block content %}
+<div class="analytics-container fade-in">
+    <div class="analytics-header fade-up">
+        <h1 class="page-title">Nutrition Analytics</h1>
+        <p>Track your nutrition trends and see your progress over time.</p>
+    </div>
+    
+    <div class="chart-controls fade-up" style="animation-delay: 0.1s;">
+        <div class="date-range-selector">
+            <button class="date-range-btn active" data-range="7days">Last 7 Days</button>
+            <button class="date-range-btn" data-range="30days">Last 30 Days</button>
+            <button class="date-range-btn" data-range="90days">Last 3 Months</button>
+        </div>
+    </div>
+    
+    <div class="charts-grid">
+        <div class="chart-container fade-up" style="animation-delay: 0.2s;">
+            <div class="chart-header">
+                <h2 class="chart-title">Daily Calorie Intake</h2>
+            </div>
+            <p class="chart-description">Your daily calorie consumption compared to your target goal.</p>
+            <div class="chart-wrapper">
+                <canvas id="calorieChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-container fade-up" style="animation-delay: 0.3s;">
+            <div class="chart-header">
+                <h2 class="chart-title">Macronutrient Breakdown</h2>
+            </div>
+            <p class="chart-description">Average distribution of protein, carbs, and fat in your diet.</p>
+            <div class="chart-wrapper">
+                <canvas id="macronutrientChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-container fade-up" style="animation-delay: 0.4s;">
+            <div class="chart-header">
+                <h2 class="chart-title">Water Intake Trend</h2>
+            </div>
+            <p class="chart-description">Your daily water consumption over time.</p>
+            <div class="chart-wrapper">
+                <canvas id="waterChart"></canvas>
+            </div>
+        </div>
+        
+        <div class="chart-container fade-up" style="animation-delay: 0.5s;">
+            <div class="chart-header">
+                <h2 class="chart-title">Weight Progress</h2>
+            </div>
+            <p class="chart-description">Track your weight changes over time.</p>
+            <div class="chart-wrapper">
+                <canvas id="weightChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<!-- Chart.js Library -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<!-- Custom analytics scripts -->
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+{% endblock %} 

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Login - Nutri AI Insight{% endblock %}
+
+{% block content %}
+<div class="auth-container fade-in">
+    <div class="auth-box slide-up fade-up">
+        <h1 class="slide-in">Login</h1>
+        
+        {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+        {% endif %}
+        
+        <form method="POST" action="{{ url_for('login') }}">
+            <div class="form-group slide-in fade-up" style="animation-delay: 0.1s;">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group slide-in fade-up" style="animation-delay: 0.2s;">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn-primary pulse fade-up" style="animation-delay: 0.3s;">Login</button>
+        </form>
+        <p class="auth-link slide-in fade-up" style="animation-delay: 0.4s;">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+    </div>
+</div>
+{% endblock %} 
