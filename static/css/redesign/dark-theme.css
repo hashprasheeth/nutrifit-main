@@ -1,0 +1,638 @@
+/* Dark Theme for NutriFy
+ * Modern, sleek dark UI styling similar to Untrashify reference images
+ */
+
+:root {
+  /* Dark theme colors */
+  --dark-bg: #121212;
+  --dark-card-bg: #1e1e1e;
+  --dark-card-highlight: #2a2a2a;
+  --dark-text: #ffffff;
+  --dark-text-secondary: rgba(255, 255, 255, 0.7);
+  --dark-text-disabled: rgba(255, 255, 255, 0.5);
+  --dark-border: rgba(255, 255, 255, 0.12);
+  
+  /* Light theme colors */
+  --light-bg: #f5f5f5;
+  --light-card-bg: #ffffff;
+  --light-card-highlight: #f0f0f0;
+  --light-text: #212121;
+  --light-text-secondary: rgba(33, 33, 33, 0.7);
+  --light-text-disabled: rgba(33, 33, 33, 0.5);
+  --light-border: rgba(0, 0, 0, 0.12);
+
+  /* Accent colors */
+  --accent-green: #4CAF50;
+  --accent-green-light: rgba(76, 175, 80, 0.2);
+  --accent-blue: #2196F3;
+  --accent-blue-light: rgba(33, 150, 243, 0.2);
+  --accent-yellow: #FFC107;
+  --accent-yellow-light: rgba(255, 193, 7, 0.2);
+  --accent-red: #F44336;
+  --accent-red-light: rgba(244, 67, 54, 0.2);
+  
+  /* Statistics colors */
+  --stat-water: #00BCD4;
+  --stat-co2: #5E35B1;
+  --stat-energy: #FFB300;
+  --stat-tree: #4CAF50;
+}
+
+/* Base styles for when no theme is explicitly applied */
+body {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.navbar {
+  background-color: var(--dark-bg) !important;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.05) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+.navbar-brand {
+  color: var(--accent-green) !important;
+  font-weight: 600;
+}
+
+.navbar-nav-link {
+  color: var(--dark-text) !important;
+}
+
+.hero-section {
+  background: linear-gradient(135deg, #1e1e1e, #121212) !important;
+  margin-top: -1px; /* Remove gap between navbar and hero section */
+}
+
+.hero-title, .hero-subtitle {
+  color: var(--dark-text) !important; /* Always white text in hero section */
+}
+
+.features-section, .text-white {
+  color: var(--dark-text) !important;
+}
+
+/* Today's Summary Box Styling */
+.summary-box {
+  background-color: white;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.summary-box:hover {
+  transform: translateY(-5px);
+}
+
+.summary-box .text-lg,
+.summary-box .text-sm,
+.summary-box .text-xs {
+  color: #333;
+  font-weight: 600;
+}
+
+.summary-card {
+  background-color: var(--light-card-highlight);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  color: #333;
+}
+
+.summary-card:hover {
+  transform: translateY(-3px);
+}
+
+.summary-box .font-medium,
+.summary-box .font-bold {
+  color: #222;
+}
+
+.dark-mode .summary-box {
+  background-color: var(--dark-card-bg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .summary-box .text-lg,
+.dark-mode .summary-box .text-sm,
+.dark-mode .summary-box .text-xs {
+  color: #fff;
+}
+
+.dark-mode .summary-card {
+  background-color: var(--dark-card-highlight);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  color: #fff;
+}
+
+.dark-mode .summary-box .font-medium,
+.dark-mode .summary-box .font-bold {
+  color: #fff;
+}
+
+/* Macro card specific styles */
+.summary-card.bg-accent-blue-light .text-xs,
+.summary-card.bg-accent-yellow-light .text-xs,
+.summary-card.bg-accent-red-light .text-xs {
+  color: rgba(255, 255, 255, 0.95) !important;
+  font-weight: 500;
+}
+
+.summary-card.bg-accent-blue-light .text-accent-blue,
+.summary-card.bg-accent-yellow-light .text-accent-yellow,
+.summary-card.bg-accent-red-light .text-accent-red {
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* AI Nutrition Tip improved styles */
+.summary-card.pulse .text-xs {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+.summary-card.pulse .text-sm {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* Light theme specific styles */
+body:not(.dark-mode) {
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+body:not(.dark-mode) .navbar-nav-link:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+body:not(.dark-mode) .navbar-nav-link.active {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: var(--accent-green) !important;
+}
+
+body:not(.dark-mode) .dashboard-title {
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  background: linear-gradient(90deg, var(--accent-green), #8BC34A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body:not(.dark-mode) .dashboard-subtitle {
+  color: var(--light-text-secondary);
+}
+
+body:not(.dark-mode) .features-title {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+body:not(.dark-mode) .features-subtitle,
+body:not(.dark-mode) .feature-description {
+  color: var(--light-text-secondary) !important;
+}
+
+body:not(.dark-mode) .feature-title {
+  color: var(--light-text) !important;
+}
+
+body:not(.dark-mode) .feature-card {
+  background-color: var(--light-card-bg);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+body:not(.dark-mode) .text-white:not(.hero-title):not(.hero-subtitle) {
+  color: var(--light-text) !important;
+}
+
+body:not(.dark-mode) .bg-dark-card-bg {
+  background-color: var(--light-card-bg) !important;
+}
+
+body:not(.dark-mode) .bg-dark-card-highlight {
+  background-color: var(--light-card-highlight) !important;
+}
+
+/* Dark theme styles */
+.dark-mode {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+/* Base Layout */
+.dark-mode .container {
+  max-width: 1400px;
+  padding: 0 20px;
+}
+
+.dark-mode .navbar {
+  background-color: var(--dark-bg);
+  box-shadow: 0 1px 0px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+.dark-mode .navbar-brand {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.dark-mode .navbar-nav-link {
+  color: var(--dark-text);
+}
+
+.dark-mode .navbar-nav-link:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark-mode .navbar-nav-link.active {
+  background-color: rgba(76, 175, 80, 0.15);
+  color: var(--accent-green);
+}
+
+/* Dashboard Layout */
+.dark-mode .dashboard-layout {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.dark-mode .dashboard-header {
+  grid-column: 1 / -1;
+  margin-bottom: 10px;
+}
+
+.dark-mode .dashboard-title {
+  font-size: 32px;
+  margin-bottom: 8px;
+  font-weight: 600;
+  background: linear-gradient(90deg, var(--accent-green), #8BC34A);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.dark-mode .dashboard-subtitle {
+  color: var(--dark-text-secondary);
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+/* Stat Cards */
+.dark-mode .stat-card {
+  background-color: var(--dark-card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.dark-mode .stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .stat-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.dark-mode .stat-card-calories .stat-card-icon {
+  background-color: var(--accent-green-light);
+  color: var(--accent-green);
+}
+
+.dark-mode .stat-card-protein .stat-card-icon {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
+}
+
+.dark-mode .stat-card-carbs .stat-card-icon {
+  background-color: var(--accent-yellow-light);
+  color: var(--accent-yellow);
+}
+
+.dark-mode .stat-card-fat .stat-card-icon {
+  background-color: var(--accent-red-light);
+  color: var(--accent-red);
+}
+
+.dark-mode .stat-card-water .stat-card-icon {
+  background-color: rgba(0, 188, 212, 0.2);
+  color: var(--stat-water);
+}
+
+.dark-mode .stat-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.dark-mode .stat-card-title {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--dark-text-secondary);
+}
+
+.dark-mode .stat-card-value {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--dark-text);
+}
+
+.dark-mode .progress-container {
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.dark-mode .progress-bar-primary {
+  background: linear-gradient(90deg, var(--accent-green), #8BC34A);
+}
+
+.dark-mode .progress-bar-protein {
+  background: linear-gradient(90deg, var(--accent-blue), #64B5F6);
+}
+
+.dark-mode .progress-bar-carbs {
+  background: linear-gradient(90deg, var(--accent-yellow), #FFCA28);
+}
+
+.dark-mode .progress-bar-fat {
+  background: linear-gradient(90deg, var(--accent-red), #EF5350);
+}
+
+.dark-mode .progress-bar-water {
+  background: linear-gradient(90deg, #00ACC1, #4DD0E1);
+}
+
+/* Buttons */
+.dark-mode .btn {
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.dark-mode .btn-primary {
+  background-color: var(--accent-green);
+  border: none;
+  color: white;
+}
+
+.dark-mode .btn-primary:hover {
+  background-color: #43A047;
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.dark-mode .btn-outline-primary {
+  border: 1px solid var(--accent-green);
+  color: var(--accent-green);
+  background-color: transparent;
+}
+
+.dark-mode .btn-outline-primary:hover {
+  background-color: rgba(76, 175, 80, 0.1);
+}
+
+.dark-mode .btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+/* Cards and Containers */
+.dark-mode .card {
+  background-color: var(--dark-card-bg);
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .card-header {
+  background-color: transparent;
+  border-bottom: 1px solid var(--dark-border);
+  padding: 16px 24px;
+}
+
+.dark-mode .card-body {
+  padding: 24px;
+}
+
+.dark-mode .table {
+  color: var(--dark-text);
+}
+
+.dark-mode .table th {
+  border-color: var(--dark-border);
+  color: var(--dark-text-secondary);
+  font-weight: 500;
+}
+
+.dark-mode .table td {
+  border-color: var(--dark-border);
+}
+
+.dark-mode .table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Forms */
+.dark-mode .form-control {
+  background-color: var(--dark-card-highlight);
+  border: 1px solid var(--dark-border);
+  color: var(--dark-text);
+  border-radius: 8px;
+  padding: 10px 16px;
+}
+
+.dark-mode .form-control:focus {
+  background-color: var(--dark-card-highlight);
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.25);
+  border-color: var(--accent-green);
+  color: var(--dark-text);
+}
+
+.dark-mode .form-label {
+  color: var(--dark-text-secondary);
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+/* Footer */
+.dark-mode footer {
+  background-color: var(--dark-bg);
+  border-top: 1px solid var(--dark-border);
+  color: var(--dark-text-secondary);
+}
+
+/* Utility classes */
+.dark-mode .text-primary {
+  color: var(--accent-green) !important;
+}
+
+.dark-mode .text-secondary {
+  color: var(--dark-text-secondary) !important;
+}
+
+.dark-mode .border {
+  border-color: var(--dark-border) !important;
+}
+
+.dark-mode .shadow-sm {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+}
+
+.dark-mode .shadow-md {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
+}
+
+.dark-mode .bg-gradient-card {
+  background: linear-gradient(145deg, var(--dark-card-bg), var(--dark-card-highlight));
+}
+
+/* Analytics page styling */
+.dark-mode .analytics-layout {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  padding: 20px 0;
+}
+
+.dark-mode .analytics-layout-wide {
+  grid-column: 1 / -1;
+}
+
+.dark-mode .chart-container {
+  background-color: var(--dark-card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  height: 100%;
+}
+
+.dark-mode .chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--dark-text);
+}
+
+/* Environmental impact stats styling similar to Untrashify */
+.dark-mode .impact-card {
+  background-color: var(--dark-card-bg);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .impact-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.dark-mode .impact-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.dark-mode .impact-label {
+  color: var(--dark-text-secondary);
+  margin-bottom: 8px;
+}
+
+.dark-mode .impact-subtext {
+  font-size: 14px;
+  color: var(--dark-text-disabled);
+}
+
+/* Custom tab navigation (similar to Untrashify) */
+.dark-mode .custom-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--dark-border);
+  margin-bottom: 24px;
+}
+
+.dark-mode .custom-tab {
+  padding: 12px 24px;
+  cursor: pointer;
+  color: var(--dark-text-secondary);
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.dark-mode .custom-tab.active {
+  color: var(--accent-green);
+}
+
+.dark-mode .custom-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--accent-green);
+}
+
+/* Date range selector */
+.dark-mode .time-range-selector {
+  display: inline-block;
+  background-color: var(--dark-card-highlight);
+  border-radius: 8px;
+  padding: 2px;
+  border: 1px solid var(--dark-border);
+}
+
+.dark-mode .time-range-selector select {
+  background-color: transparent;
+  color: var(--dark-text);
+  border: none;
+  padding: 8px 16px;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  padding-right: 32px;
+}
+
+/* Progress indicators like in Untrashify admin panel */
+.dark-mode .trend-indicator {
+  display: inline-flex;
+  align-items: center;
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.dark-mode .trend-up {
+  color: #4CAF50;
+}
+
+.dark-mode .trend-down {
+  color: #F44336;
+}
+
+.dark-mode .comparison-text {
+  font-size: 12px;
+  color: var(--dark-text-disabled);
+  margin-top: 4px;
+} 

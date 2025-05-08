@@ -1,119 +1,164 @@
 {% extends "base.html" %}
 
-{% block title %}Dashboard - Nutri AI Insight{% endblock %}
+{% block title %}Dashboard - NutriFy{% endblock %}
 
 {% block content %}
-<div class="dashboard">
-    <h1 class="slide-in">Welcome, {{ current_user.email }}!</h1>
+<div class="dashboard-layout">
+    <div class="dashboard-header dashboard-layout-wide">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+            <div class="mb-4 md:mb-0">
+                <h1 class="dashboard-title">Welcome, {% if current_user.profile and current_user.profile.name %}{{ current_user.profile.name }}{% else %}{{ current_user.email }}{% endif %}!</h1>
+                <p class="dashboard-subtitle">Track your nutrition journey and stay healthy</p>
+            </div>
+            <div class="dashboard-actions">
+                <a href="{{ url_for('profile') }}" class="btn btn-outline-primary">Edit Profile</a>
+            </div>
+        </div>
+    </div>
     
-    <div class="dashboard-grid">
-        <div class="dashboard-card slide-up fade-up" style="animation-delay: 0.1s;">
-            <h2>Daily Nutrition</h2>
-            <div class="nutrition-summary">
-                <div class="nutrition-item slide-in" style="animation-delay: 0.2s;">
-                    <span class="label">Calories</span>
-                    <span class="value">{{ total_calories }} / {{ calorie_goal }}</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: {{ (total_calories / calorie_goal * 100) if calorie_goal else 0 }}%"></div>
+    <!-- Nutrition Summary Cards -->
+    <div class="stat-card stat-card-calories">
+        <div class="stat-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V6a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v14"></path><path d="M2 20h20"></path><path d="M14 12v.01"></path></svg>
+        </div>
+        <div class="stat-card-header">
+            <h3 class="stat-card-title">Calories</h3>
+        </div>
+        <div class="stat-card-value">{{ total_calories }} / {{ calorie_goal }}</div>
+        <div class="progress-container">
+            <div class="progress-bar progress-bar-primary" style="width: {{ (total_calories / calorie_goal * 100) if calorie_goal else 0 }}%"></div>
                     </div>
                 </div>
-                <div class="nutrition-item slide-in" style="animation-delay: 0.3s;">
-                    <span class="label">Protein</span>
-                    <span class="value">{{ total_protein }}g / {{ protein_goal }} g</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: {{ (total_protein / protein_goal * 100) if protein_goal else 0 }}%"></div>
+    
+    <div class="stat-card stat-card-protein">
+        <div class="stat-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg>
+        </div>
+        <div class="stat-card-header">
+            <h3 class="stat-card-title">Protein</h3>
+        </div>
+        <div class="stat-card-value">{{ total_protein }}g / {{ protein_goal }}g</div>
+        <div class="progress-container">
+            <div class="progress-bar progress-bar-protein" style="width: {{ (total_protein / protein_goal * 100) if protein_goal else 0 }}%"></div>
                     </div>
                 </div>
-                <div class="nutrition-item slide-in" style="animation-delay: 0.4s;">
-                    <span class="label">Carbs</span>
-                    <span class="value">{{ total_carbs }}g / {{ carbs_goal }} g</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: {{ (total_carbs / carbs_goal * 100) if carbs_goal else 0 }}%"></div>
+    
+    <div class="stat-card stat-card-carbs">
+        <div class="stat-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.4 7.3 11.4 7.6 11.7a.7.7 0 0 0 .9 0c.3-.3 7.5-6.3 7.5-11.7a8 8 0 0 0-8-8z"></path><path d="M12 14.5c2.2 1 3.6-1.4 3.7-3.1a4.8 4.8 0 0 0-7.2-3.7 4.6 4.6 0 0 0-1.4 3.7c0 1.8 1.4 4.2 4.9 3.1z"></path></svg>
+        </div>
+        <div class="stat-card-header">
+            <h3 class="stat-card-title">Carbs</h3>
+        </div>
+        <div class="stat-card-value">{{ total_carbs }}g / {{ carbs_goal }}g</div>
+        <div class="progress-container">
+            <div class="progress-bar progress-bar-carbs" style="width: {{ (total_carbs / carbs_goal * 100) if carbs_goal else 0 }}%"></div>
                     </div>
                 </div>
-                <div class="nutrition-item slide-in" style="animation-delay: 0.5s;">
-                    <span class="label">Fat</span>
-                    <span class="value">{{ total_fat }}g / {{ fat_goal }} g</span>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: {{ (total_fat / fat_goal * 100) if fat_goal else 0 }}%"></div>
+    
+    <div class="stat-card stat-card-fat">
+        <div class="stat-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 13c3.5-1 5.5 1 5.5 6h-15c0-5 2-7 5.5-6"></path><path d="M9 6c-.9 0-1.7.4-2.2 1-.5.6-.8 1.3-.8 2 0 .5-.2.8-.2.8"></path><path d="M15 6c.9 0 1.7.4 2.2 1 .5.6.8 1.3.8 2 0 .5.2.8.2.8"></path><path d="M12 10a3 3 0 0 0-3-3h6a3 3 0 0 0-3 3v1h0v7c0 1-1 2-2 2h1a3 3 0 0 0 3-3v-6h0v-1z"></path></svg>
+        </div>
+        <div class="stat-card-header">
+            <h3 class="stat-card-title">Fat</h3>
+        </div>
+        <div class="stat-card-value">{{ total_fat }}g / {{ fat_goal }}g</div>
+        <div class="progress-container">
+            <div class="progress-bar progress-bar-fat" style="width: {{ (total_fat / fat_goal * 100) if fat_goal else 0 }}%"></div>
                     </div>
                 </div>
-                <div class="nutrition-item slide-in" style="animation-delay: 0.6s;">
-                    <span class="label">Water</span>
-                    <span class="value">{{ water_amount }}ml / {{ water_goal }} ml</span>
-                    <div class="progress-bar">
-                        <div class="progress water-progress" style="width: {{ (water_amount / water_goal * 100) if water_goal else 0 }}%"></div>
+    
+    <!-- Water Tracking -->
+    <div class="stat-card stat-card-water">
+        <div class="stat-card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19c-4.2 0-7-1.7-7-4V5"></path><path d="M5 15.6c0 2.3 2.8 4 7 4s7-1.7 7-4"></path><path d="M12 11c-4.2 0-7-1.7-7-4V3c0 2.3 2.8 4 7 4s7-1.7 7-4v4c0 2.3-2.8 4-7 4Z"></path></svg>
+        </div>
+        <div class="stat-card-header">
+            <h3 class="stat-card-title">Water</h3>
+        </div>
+        <div class="stat-card-value">{{ water_amount }}ml / {{ water_goal }}ml</div>
+        <div class="progress-container">
+            <div class="progress-bar progress-bar-water" style="width: {{ (water_amount / water_goal * 100) if water_goal else 0 }}%"></div>
+        </div>
+        <form method="POST" action="{{ url_for('add_water') }}" class="mt-4">
+            <div class="flex flex-wrap gap-2">
+                <button type="submit" name="water_amount" value="100" class="btn btn-sm btn-outline-primary">+100ml</button>
+                <button type="submit" name="water_amount" value="250" class="btn btn-sm btn-outline-primary">+250ml</button>
+                <button type="submit" name="water_amount" value="500" class="btn btn-sm btn-outline-primary">+500ml</button>
                     </div>
+            <div class="form-group mt-2">
+                <label for="custom-water" class="form-label text-sm">Custom amount:</label>
+                <div class="flex gap-2">
+                    <input type="number" id="custom-water" name="water_amount" min="1" max="2000" step="1" class="form-control">
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </div>
+        </form>
+    </div>
+    
+    <!-- Food Analysis Section -->
+    <div class="card dashboard-layout-wide">
+        <div class="card-header">
+            <h2 class="chart-title">AI Food Analyzer</h2>
         </div>
-
-        <div class="dashboard-card slide-up fade-up" style="animation-delay: 0.2s;">
-            <h2>Add Food</h2>
-            <form id="add-food-form" method="POST" action="{{ url_for('add_food') }}">
-                <div class="form-group">
-                    <label for="food-name">Food Name</label>
-                    <input type="text" id="food-name" name="food-name" required>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="food-description" class="form-label">Describe a food:</label>
+                <div class="flex gap-2">
+                    <input type="text" id="food-description" class="form-control" placeholder="e.g., chicken breast 100g, rice 200g">
+                    <button id="analyze-btn" type="button" class="btn btn-primary">Analyze</button>
                 </div>
-                <div class="form-group">
-                    <label for="calories">Calories</label>
-                    <input type="number" id="calories" name="calories" required>
-                </div>
-                <div class="form-group">
-                    <label for="protein">Protein (g)</label>
-                    <input type="number" id="protein" name="protein" step="0.1" value="0">
-                </div>
-                <div class="form-group">
-                    <label for="carbs">Carbs (g)</label>
-                    <input type="number" id="carbs" name="carbs" step="0.1" value="0">
-                </div>
-                <div class="form-group">
-                    <label for="fat">Fat (g)</label>
-                    <input type="number" id="fat" name="fat" step="0.1" value="0">
-                </div>
-                <button type="submit">Add Food</button>
-            </form>
-            <div class="ai-analyzer">
-                <h3>AI Food Analyzer</h3>
-                <div class="form-group">
-                    <label for="food-description">Describe a food:</label>
-                    <input type="text" id="food-description" placeholder="e.g., chicken breast 100g, rice 200g">
-                </div>
-                <button id="analyze-btn" type="button">Analyze</button>
-                <div id="analysis-result" class="hidden"></div>
             </div>
-        </div>
-        
-        <div class="dashboard-card slide-up fade-up" style="animation-delay: 0.3s;">
-            <h2>Water Intake</h2>
-            <div class="water-tracking">
-                <div class="water-info">
-                    <p>Current water intake: <strong>{{ water_amount }}ml / {{ water_goal }} ml</strong></p>
-                    <div class="water-visual">
-                        <div class="water-level" style="height: {{ (water_amount / water_goal * 100) if water_goal else 0 }}%"></div>
-                    </div>
-                </div>
-                <form method="POST" action="{{ url_for('add_water') }}" class="water-form">
-                    <div class="water-buttons">
-                        <button type="submit" name="water_amount" value="100" class="water-btn">+100ml</button>
-                        <button type="submit" name="water_amount" value="250" class="water-btn">+250ml</button>
-                        <button type="submit" name="water_amount" value="500" class="water-btn">+500ml</button>
+            <div id="analysis-result" class="hidden mt-4"></div>
+            
+            <div class="mt-6 pt-4 border-t">
+                <h3 class="mb-4 text-lg font-semibold">Add Food</h3>
+                <form id="add-food-form" method="POST" action="{{ url_for('add_food') }}" class="grid grid-cols-1 md:grid-cols-5 gap-4">
+                    <div class="form-group md:col-span-2">
+                        <label for="food-name" class="form-label">Food Name</label>
+                        <input type="text" id="food-name" name="food-name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="custom-water">Custom amount (ml):</label>
-                        <div class="custom-water-input">
-                            <input type="number" id="custom-water" name="water_amount" min="1" max="2000" step="1">
-                            <button type="submit" class="water-btn">Add</button>
-                        </div>
+                        <label for="calories" class="form-label">Calories</label>
+                        <input type="number" id="calories" name="calories" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="protein" class="form-label">Protein (g)</label>
+                        <input type="number" id="protein" name="protein" step="0.1" value="0" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="carbs" class="form-label">Carbs (g)</label>
+                        <input type="number" id="carbs" name="carbs" step="0.1" value="0" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="fat" class="form-label">Fat (g)</label>
+                        <input type="number" id="fat" name="fat" step="0.1" value="0" class="form-control">
+                    </div>
+                    <div class="form-group md:col-span-5">
+                        <button type="submit" class="btn btn-primary">Add Food</button>
                     </div>
                 </form>
             </div>
+            </div>
         </div>
         
-        <div class="dashboard-card full-width slide-up fade-up" style="animation-delay: 0.4s;">
-            <h2>Today's Food Log</h2>
+    <!-- Food Log -->
+    <div class="card dashboard-layout-wide">
+        <div class="card-header">
+            <div class="flex justify-between items-center">
+                <h2 class="chart-title">Today's Food Log</h2>
+                <div class="custom-tabs">
+                    <div class="custom-tab active">Today</div>
+                    <div class="custom-tab">Yesterday</div>
+                    <div class="custom-tab">This Week</div>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
             {% if food_entries %}
-            <table class="food-log">
+            <div class="overflow-x-auto">
+                <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Food</th>
@@ -125,7 +170,7 @@
                 </thead>
                 <tbody>
                     {% for entry in food_entries %}
-                    <tr>
+                        <tr class="stagger-item">
                         <td>{{ entry.name }}</td>
                         <td>{{ entry.calories }}</td>
                         <td>{{ entry.protein }}g</td>
@@ -135,29 +180,42 @@
                     {% endfor %}
                 </tbody>
             </table>
+            </div>
             {% else %}
-            <p class="empty-message">No food entries for today. Start tracking your meals!</p>
+            <div class="flex flex-col items-center justify-center p-8">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="text-secondary mb-4"><path d="M10.3 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10.8"></path><path d="M8 10h8"></path><path d="M8 14h4"></path><path d="M17 17.5V21l2-2"></path><path d="M19 17.5V21l-2-2"></path></svg>
+                <p class="text-center text-secondary">No food entries for today. Start tracking your meals!</p>
+            </div>
             {% endif %}
         </div>
+        </div>
         
+    <!-- AI Recommendation -->
         {% if recommendation %}
-        <div class="dashboard-card full-width slide-up fade-up" style="animation-delay: 0.5s;">
-            <h2>AI Nutrition Recommendation</h2>
-            <div class="recommendation">
-                {{ recommendation }}
+    <div class="card dashboard-layout-wide">
+        <div class="card-header">
+            <div class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mr-2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                <h3 class="chart-title">AI Nutrition Recommendation</h3>
             </div>
         </div>
-        {% endif %}
+        <div class="card-body">
+            {{ recommendation }}
+        </div>
     </div>
+    {% endif %}
 </div>
 
 <!-- Needs analysis dialog -->
 <div id="needs-dialog" class="modal {{ 'show' if show_needs_dialog else 'hidden' }}">
     <div class="modal-content">
         <span class="close-btn">&times;</span>
-        <h2>Your Personalized Nutrition Plan</h2>
+        <h2 class="text-xl font-bold mb-4">Your Personalized Nutrition Plan</h2>
         <div id="needs-content">
-            <div class="loading">Analyzing your profile... <div class="spinner"></div></div>
+            <div class="flex flex-col items-center justify-center p-8">
+                <div class="spinner mb-4"></div>
+                <p>Analyzing your profile...</p>
+            </div>
         </div>
     </div>
 </div>
@@ -175,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
         analyzeBtn.addEventListener('click', function() {
             if (!foodDescription.value) return;
             
-            analysisResult.innerHTML = '<div class="loading">Analyzing... <div class="spinner"></div></div>';
+            analysisResult.innerHTML = '<div class="flex flex-col items-center justify-center p-4"><div class="spinner mb-4"></div><p>Analyzing...</p></div>';
             analysisResult.classList.remove('hidden');
             
             fetch('{{ url_for("analyze_food_route") }}', {
@@ -189,34 +247,45 @@ document.addEventListener('DOMContentLoaded', function() {
             })
             .then(response => response.json())
             .then(data => {
+                console.log('Analysis response:', data);  // Debug log
+                
                 // Fill the form with the analyzed values
                 document.getElementById('food-name').value = foodDescription.value;
-                document.getElementById('calories').value = data.calories;
-                document.getElementById('protein').value = data.protein;
-                document.getElementById('carbs').value = data.carbs;
-                document.getElementById('fat').value = data.fat;
+                document.getElementById('calories').value = data.calories || 0;
+                document.getElementById('protein').value = data.protein || 0;
+                document.getElementById('carbs').value = data.carbs || 0;
+                document.getElementById('fat').value = data.fat || 0;
                 
                 // Show analysis result with animation
-                let html = '';
+                let html = '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gradient-card rounded-lg">';
                 const items = [
-                    {label: 'Calories', value: `${data.calories} kcal`},
-                    {label: 'Protein', value: `${data.protein} g`},
-                    {label: 'Carbs', value: `${data.carbs} g`},
-                    {label: 'Fat', value: `${data.fat} g`}
+                    {label: 'Calories', value: `${data.calories || 0} kcal`},
+                    {label: 'Protein', value: `${data.protein || 0} g`},
+                    {label: 'Carbs', value: `${data.carbs || 0} g`},
+                    {label: 'Fat', value: `${data.fat || 0} g`}
                 ];
                 
                 items.forEach((item, index) => {
                     html += `
-                        <div class="nutrition-item slide-in" style="animation-delay: ${index * 0.1}s">
-                            <span class="label">${item.label}: ${item.value}</span>
+                        <div class="p-3" data-scroll="fade-up" style="--scroll-delay: ${index * 0.1}s">
+                            <div class="text-secondary">${item.label}</div>
+                            <div class="text-xl font-bold">${item.value}</div>
                         </div>
                     `;
                 });
                 
+                html += '</div>';
                 analysisResult.innerHTML = html;
+                
+                // Trigger the scroll animation
+                setTimeout(() => {
+                    document.querySelectorAll('#analysis-result [data-scroll]').forEach(el => {
+                        el.classList.add('in-view');
+                    });
+                }, 100);
             })
             .catch(error => {
-                analysisResult.innerHTML = 'Error analyzing food. Please try again.';
+                analysisResult.innerHTML = '<div class="alert alert-danger">Error analyzing food. Please try again.</div>';
                 console.error('Error:', error);
             });
         });
@@ -227,6 +296,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const needsContent = document.getElementById('needs-content');
     const closeBtn = document.querySelector('.close-btn');
     
+    if (closeBtn) {
+        closeBtn.addEventListener('click', function() {
+            needsDialog.classList.add('hidden');
+        });
+    }
+    
     if (needsDialog && needsDialog.classList.contains('show')) {
         // Fetch personalized needs
         fetch('{{ url_for("analyze_user_needs_route") }}')
@@ -234,61 +309,61 @@ document.addEventListener('DOMContentLoaded', function() {
             .then(data => {
                 // Show results with animations
                 let html = `
-                    <div class="needs-section slide-in">
-                        <h3>Calorie Goal: <span class="highlight">${data.daily_calorie_goal} kcal</span></h3>
-                        <p>${data.calorie_explanation}</p>
+                    <div class="needs-section slide-in-up">
+                        <h3 class="text-xl font-semibold mb-2">Calorie Goal: <span class="text-primary">${data.daily_calorie_goal} kcal</span></h3>
+                        <p class="mb-4">${data.calorie_explanation}</p>
                     </div>
                     
-                    <div class="needs-section slide-in" style="animation-delay: 0.1s">
-                        <h3>Macronutrient Goals</h3>
-                        <ul>
-                            <li class="slide-in" style="animation-delay: 0.2s">Protein: <span class="highlight">${data.daily_protein_goal} g</span></li>
-                            <li class="slide-in" style="animation-delay: 0.3s">Carbs: <span class="highlight">${data.daily_carbs_goal} g</span></li>
-                            <li class="slide-in" style="animation-delay: 0.4s">Fat: <span class="highlight">${data.daily_fat_goal} g</span></li>
-                        </ul>
-                        <p>${data.macros_explanation}</p>
+                    <div class="needs-section slide-in-up" style="animation-delay: 0.1s">
+                        <h3 class="text-xl font-semibold mb-2">Macronutrient Goals</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="p-4 bg-gradient-card rounded-lg slide-in-up" style="animation-delay: 0.2s">
+                                <div class="text-protein-600 font-semibold">Protein</div>
+                                <div class="text-xl font-bold">${data.daily_protein_goal} g</div>
+                                <div class="text-sm text-secondary">${Math.round(data.daily_protein_goal * 4)} calories</div>
+                            </div>
+                            <div class="p-4 bg-gradient-card rounded-lg slide-in-up" style="animation-delay: 0.3s">
+                                <div class="text-carbs-600 font-semibold">Carbs</div>
+                                <div class="text-xl font-bold">${data.daily_carbs_goal} g</div>
+                                <div class="text-sm text-secondary">${Math.round(data.daily_carbs_goal * 4)} calories</div>
+                            </div>
+                            <div class="p-4 bg-gradient-card rounded-lg slide-in-up" style="animation-delay: 0.4s">
+                                <div class="text-fat-600 font-semibold">Fat</div>
+                                <div class="text-xl font-bold">${data.daily_fat_goal} g</div>
+                                <div class="text-sm text-secondary">${Math.round(data.daily_fat_goal * 9)} calories</div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="needs-section slide-in" style="animation-delay: 0.5s">
-                        <h3>Water Goal: <span class="highlight">${data.daily_water_goal} ml</span></h3>
-                        <p>${data.water_explanation}</p>
+                    <div class="needs-section slide-in-up" style="animation-delay: 0.5s">
+                        <h3 class="text-xl font-semibold mb-2">Water Goal: <span class="text-water">${data.daily_water_goal} ml</span></h3>
+                        <p class="mb-4">Staying hydrated is essential for optimal health and nutrient utilization.</p>
                     </div>
                     
-                    <p class="needs-note slide-in" style="animation-delay: 0.6s">These values have been automatically set for your profile. You can adjust them in your profile settings if needed.</p>
+                    <div class="flex justify-center mt-6">
+                        <button class="btn btn-primary" onclick="document.getElementById('needs-dialog').classList.add('hidden')">Got it!</button>
+                    </div>
                 `;
+                
                 needsContent.innerHTML = html;
             })
             .catch(error => {
-                needsContent.innerHTML = 'Error fetching personalized recommendations. Please try again.';
+                needsContent.innerHTML = '<div class="alert alert-danger">Error retrieving personalized nutrition plan. Please try again later.</div>';
                 console.error('Error:', error);
             });
     }
     
-    // Close the modal when clicking the close button
-    if (closeBtn) {
-        closeBtn.addEventListener('click', function() {
-            needsDialog.classList.remove('show');
-            needsDialog.classList.add('hidden');
+    // Custom tabs functionality
+    const customTabs = document.querySelectorAll('.custom-tab');
+    
+    customTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            customTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Add your tab switching logic here
+            // For demonstration purposes only - would be replaced with actual data
         });
-    }
-    
-    // Close the modal when clicking outside of it
-    window.addEventListener('click', function(event) {
-        if (event.target === needsDialog) {
-            needsDialog.classList.remove('show');
-            needsDialog.classList.add('hidden');
-        }
-    });
-    
-    // Animate progress bars on page load
-    const progressBars = document.querySelectorAll('.progress');
-    progressBars.forEach(bar => {
-        const originalWidth = bar.style.width;
-        bar.style.width = '0';
-        setTimeout(() => {
-            bar.style.transition = 'width 1s ease-out';
-            bar.style.width = originalWidth;
-        }, 100);
     });
 });
 </script>

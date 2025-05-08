@@ -3,62 +3,146 @@
 {% block title %}Analytics - NutriFy{% endblock %}
 
 {% block content %}
-<div class="analytics-container fade-in">
-    <div class="analytics-header fade-up">
-        <h1 class="page-title">Nutrition Analytics</h1>
-        <p>Track your nutrition trends and see your progress over time.</p>
+<div class="analytics-layout">
+    <div class="dashboard-header dashboard-layout-wide">
+        <h1 class="dashboard-title slide-in-up">Nutrition Analytics</h1>
+        <div class="dashboard-actions">
+            <div class="inline-flex bg-dark-card-highlight rounded-lg shadow-sm border border-dark-border">
+                <button class="date-range-btn btn btn-ghost active" data-range="7days">Last 7 Days</button>
+                <button class="date-range-btn btn btn-ghost" data-range="30days">Last 30 Days</button>
+                <button class="date-range-btn btn btn-ghost" data-range="90days">Last 3 Months</button>
+            </div>
+        </div>
     </div>
     
-    <div class="chart-controls fade-up" style="animation-delay: 0.1s;">
-        <div class="date-range-selector">
-            <button class="date-range-btn active" data-range="7days">Last 7 Days</button>
-            <button class="date-range-btn" data-range="30days">Last 30 Days</button>
-            <button class="date-range-btn" data-range="90days">Last 3 Months</button>
+    <!-- Charts -->
+    <div class="chart-container slide-in-up" style="animation-delay: 0.1s;">
+        <div class="chart-header">
+            <h2 class="chart-title">Daily Calorie Intake</h2>
+        </div>
+        <p class="text-white opacity-70 mb-4">Your daily calorie consumption compared to your target goal.</p>
+        <div class="chart-wrapper h-64">
+            <canvas id="calorieChart"></canvas>
         </div>
     </div>
     
-    <div class="charts-grid">
-        <div class="chart-container fade-up" style="animation-delay: 0.2s;">
-            <div class="chart-header">
-                <h2 class="chart-title">Daily Calorie Intake</h2>
-            </div>
-            <p class="chart-description">Your daily calorie consumption compared to your target goal.</p>
-            <div class="chart-wrapper">
-                <canvas id="calorieChart"></canvas>
-            </div>
+    <div class="chart-container slide-in-up" style="animation-delay: 0.2s;">
+        <div class="chart-header">
+            <h2 class="chart-title">Macronutrient Breakdown</h2>
         </div>
-        
-        <div class="chart-container fade-up" style="animation-delay: 0.3s;">
-            <div class="chart-header">
-                <h2 class="chart-title">Macronutrient Breakdown</h2>
-            </div>
-            <p class="chart-description">Average distribution of protein, carbs, and fat in your diet.</p>
-            <div class="chart-wrapper">
-                <canvas id="macronutrientChart"></canvas>
-            </div>
+        <p class="text-white opacity-70 mb-4">Average distribution of protein, carbs, and fat in your diet.</p>
+        <div class="chart-wrapper h-64">
+            <canvas id="macronutrientChart"></canvas>
         </div>
-        
-        <div class="chart-container fade-up" style="animation-delay: 0.4s;">
-            <div class="chart-header">
-                <h2 class="chart-title">Water Intake Trend</h2>
-            </div>
-            <p class="chart-description">Your daily water consumption over time.</p>
-            <div class="chart-wrapper">
-                <canvas id="waterChart"></canvas>
-            </div>
+    </div>
+    
+    <div class="chart-container slide-in-up" style="animation-delay: 0.3s;">
+        <div class="chart-header">
+            <h2 class="chart-title">Water Intake Trend</h2>
         </div>
-        
-        <div class="chart-container fade-up" style="animation-delay: 0.5s;">
-            <div class="chart-header">
-                <h2 class="chart-title">Weight Progress</h2>
-            </div>
-            <p class="chart-description">Track your weight changes over time.</p>
-            <div class="chart-wrapper">
-                <canvas id="weightChart"></canvas>
+        <p class="text-white opacity-70 mb-4">Your daily water consumption over time.</p>
+        <div class="chart-wrapper h-64">
+            <canvas id="waterChart"></canvas>
+        </div>
+    </div>
+    
+    <div class="chart-container slide-in-up" style="animation-delay: 0.4s;">
+        <div class="chart-header">
+            <h2 class="chart-title">Weight Progress</h2>
+        </div>
+        <p class="text-white opacity-70 mb-4">Track your weight changes over time.</p>
+        <div class="chart-wrapper h-64">
+            <canvas id="weightChart"></canvas>
+        </div>
+    </div>
+    
+    <!-- Summary Stats -->
+    <div class="analytics-layout-wide slide-in-up" style="animation-delay: 0.5s;">
+        <div class="card shadow-md p-6">
+            <h2 class="text-xl font-semibold mb-4 text-white">Nutrition Insights</h2>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="stat-card p-4 rounded-lg bg-dark-card-highlight border border-accent-green-light">
+                    <div class="stat-card-title text-white opacity-80">Average Daily Calories</div>
+                    <div class="stat-card-value text-white">2,145</div>
+                    <div class="text-sm text-accent-green">+2% from last week</div>
+                </div>
+                
+                <div class="stat-card p-4 rounded-lg bg-dark-card-highlight border border-accent-blue-light">
+                    <div class="stat-card-title text-white opacity-80">Protein Intake</div>
+                    <div class="stat-card-value text-white">132g</div>
+                    <div class="text-sm text-accent-blue">92% of goal</div>
+                </div>
+                
+                <div class="stat-card p-4 rounded-lg bg-dark-card-highlight border border-accent-yellow-light">
+                    <div class="stat-card-title text-white opacity-80">Water Consistency</div>
+                    <div class="stat-card-value text-white">85%</div>
+                    <div class="text-sm text-stat-water">5 days above goal</div>
+                </div>
+                
+                <div class="stat-card p-4 rounded-lg bg-dark-card-highlight border border-dark-border">
+                    <div class="stat-card-title text-white opacity-80">Most Tracked Food</div>
+                    <div class="stat-card-value text-white">Chicken</div>
+                    <div class="text-sm text-white opacity-60">12 entries this week</div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<style>
+.btn-ghost {
+    background-color: transparent;
+    color: var(--dark-text);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-ghost:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-ghost.active {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--accent-green);
+}
+
+.chart-container {
+    background-color: var(--dark-card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.chart-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-bottom: 8px;
+}
+
+.h-64 {
+    height: 16rem;
+}
+
+.scale-in {
+    animation: scaleIn 0.3s ease forwards;
+}
+
+@keyframes scaleIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+</style>
 {% endblock %}
 
 {% block scripts %}
@@ -66,4 +150,39 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
 <!-- Custom analytics scripts -->
 <script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set Chart.js global defaults for dark theme
+    Chart.defaults.color = 'rgba(255, 255, 255, 0.7)';
+    Chart.defaults.borderColor = 'rgba(255, 255, 255, 0.1)';
+    
+    // Date range button functionality
+    const dateRangeButtons = document.querySelectorAll('.date-range-btn');
+    
+    dateRangeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            dateRangeButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get selected date range
+            const range = this.dataset.range;
+            
+            // Here you would typically update your charts with new data based on the selected range
+            console.log('Selected range:', range);
+            
+            // For demonstration purposes, we'll add a simple animation to show the change
+            const chartContainers = document.querySelectorAll('.chart-container');
+            chartContainers.forEach(container => {
+                container.classList.add('scale-in');
+                setTimeout(() => {
+                    container.classList.remove('scale-in');
+                }, 500);
+            });
+        });
+    });
+});
+</script>
 {% endblock %} 

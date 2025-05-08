@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
         primary: '#E67E22',
         secondary: '#4A4A4A',
         accent: '#FF9F43',
-        protein: '#D35400',
-        carbs: '#F39C12',
-        fat: '#E67E22',
+        protein: '#2ECC71',  // Green for protein
+        carbs: '#3498DB',    // Blue for carbs
+        fat: '#E74C3C',      // Red for fat
         water: '#4A90E2',
         weight: '#9C27B0',
         gridLines: 'rgba(0, 0, 0, 0.05)',
@@ -145,20 +145,20 @@ function initMacronutrientChart(ctx, data) {
             datasets: [{
                 data: [macros.protein, macros.carbs, macros.fat],
                 backgroundColor: [
-                    'rgba(211, 84, 0, 0.7)',
-                    'rgba(243, 156, 18, 0.7)',
-                    'rgba(230, 126, 34, 0.7)'
+                    'rgba(46, 204, 113, 0.7)',   // Green for protein
+                    'rgba(52, 152, 219, 0.7)',    // Blue for carbs
+                    'rgba(231, 76, 60, 0.7)'      // Red for fat
                 ],
                 borderColor: [
-                    'rgba(211, 84, 0, 1)',
-                    'rgba(243, 156, 18, 1)',
-                    'rgba(230, 126, 34, 1)'
+                    'rgba(46, 204, 113, 1)',      // Solid green border
+                    'rgba(52, 152, 219, 1)',      // Solid blue border
+                    'rgba(231, 76, 60, 1)'        // Solid red border
                 ],
                 borderWidth: 1,
                 hoverBackgroundColor: [
-                    'rgba(211, 84, 0, 0.9)',
-                    'rgba(243, 156, 18, 0.9)',
-                    'rgba(230, 126, 34, 0.9)'
+                    'rgba(46, 204, 113, 0.9)',    // Hover green
+                    'rgba(52, 152, 219, 0.9)',    // Hover blue
+                    'rgba(231, 76, 60, 0.9)'      // Hover red
                 ],
                 hoverOffset: 5
             }]

@@ -1,28 +1,270 @@
 {% extends "base.html" %}
 
-{% block title %}Login - Nutri AI Insight{% endblock %}
+{% block title %}Login - NutriFy{% endblock %}
 
 {% block content %}
-<div class="auth-container fade-in">
-    <div class="auth-box slide-up fade-up">
-        <h1 class="slide-in">Login</h1>
+<div class="auth-layout" style="background: linear-gradient(135deg, #1e1e1e, #121212);">
+    <div class="auth-container relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-accent-green rounded-full opacity-10 transform translate-x-16 -translate-y-16"></div>
+        <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent-blue rounded-full opacity-10 transform -translate-x-20 translate-y-20"></div>
+        <div class="absolute top-1/2 right-0 w-20 h-20 bg-accent-yellow rounded-full opacity-10 transform translate-x-10"></div>
         
-        {% if error %}
-        <div class="alert alert-danger">{{ error }}</div>
-        {% endif %}
-        
-        <form method="POST" action="{{ url_for('login') }}">
-            <div class="form-group slide-in fade-up" style="animation-delay: 0.1s;">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+        <div class="relative z-10">
+            <div class="auth-header">
+                <h1 class="auth-title slide-in-up mb-2">Welcome Back</h1>
+                <p class="auth-subtitle slide-in-up text-white opacity-80" style="animation-delay: 0.1s;">Log in to your NutriFy account</p>
             </div>
-            <div class="form-group slide-in fade-up" style="animation-delay: 0.2s;">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+            
+            {% if error %}
+            <div class="alert alert-danger slide-in-up" style="animation-delay: 0.2s;">{{ error }}</div>
+            {% endif %}
+            
+            <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+                <div class="form-group slide-in-up" style="animation-delay: 0.3s;">
+                    <label for="email" class="form-label text-white">Email</label>
+                    <div class="input-with-icon">
+                        <input type="email" id="email" name="email" class="form-control pl-10" required>
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-dark-text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6z"></path><path d="m2 8 10 5 10-5"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group slide-in-up" style="animation-delay: 0.4s;">
+                    <label for="password" class="form-label text-white">Password</label>
+                    <div class="input-with-icon">
+                        <input type="password" id="password" name="password" class="form-control pl-10" required>
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-dark-text-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="slide-in-up" style="animation-delay: 0.5s;">
+                    <button type="submit" class="btn btn-primary w-100 py-3 shadow-md transition-transform hover:translate-y-[-2px]">Log In</button>
+                </div>
+            </form>
+            
+            <div class="auth-footer slide-in-up" style="animation-delay: 0.6s;">
+                <p class="text-white opacity-80">Don't have an account? <a href="{{ url_for('signup') }}" class="text-accent-green font-semibold hover:underline">Sign up</a></p>
             </div>
-            <button type="submit" class="btn-primary pulse fade-up" style="animation-delay: 0.3s;">Login</button>
-        </form>
-        <p class="auth-link slide-in fade-up" style="animation-delay: 0.4s;">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+        </div>
     </div>
 </div>
+
+<style>
+.auth-container {
+    background: var(--dark-card-bg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-radius: var(--radius-2xl);
+    max-width: 450px;
+    width: 100%;
+    padding: 2.5rem;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.auth-title {
+    background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-size: 2rem;
+}
+
+.form-control {
+    background-color: var(--dark-card-highlight);
+    border: 1px solid var(--dark-border);
+    color: var(--dark-text);
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    outline: none;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.btn-primary {
+    background-color: var(--accent-green);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #43A047;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.inset-y-0 {
+    top: 0;
+    bottom: 0;
+}
+
+.left-0 {
+    left: 0;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.pl-3 {
+    padding-left: 0.75rem;
+}
+
+.pl-10 {
+    padding-left: 2.5rem;
+}
+
+.pointer-events-none {
+    pointer-events: none;
+}
+
+.w-32 {
+    width: 8rem;
+}
+
+.h-32 {
+    height: 8rem;
+}
+
+.w-40 {
+    width: 10rem;
+}
+
+.h-40 {
+    height: 10rem;
+}
+
+.w-20 {
+    width: 5rem;
+}
+
+.h-20 {
+    height: 5rem;
+}
+
+.opacity-10 {
+    opacity: 0.1;
+}
+
+.transform {
+    transform-origin: center;
+}
+
+.translate-x-16 {
+    transform: translateX(4rem);
+}
+
+.-translate-y-16 {
+    transform: translateY(-4rem);
+}
+
+.-translate-x-20 {
+    transform: translateX(-5rem);
+}
+
+.translate-y-20 {
+    transform: translateY(5rem);
+}
+
+.translate-x-10 {
+    transform: translateX(2.5rem);
+}
+
+.top-0 {
+    top: 0;
+}
+
+.right-0 {
+    right: 0;
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+.top-1\/2 {
+    top: 50%;
+}
+
+.z-10 {
+    z-index: 10;
+}
+
+.overflow-hidden {
+    overflow: hidden;
+}
+
+.transition-transform {
+    transition: transform 0.3s ease;
+}
+
+.hover\:translate-y-\[-2px\]:hover {
+    transform: translateY(-2px);
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.py-3 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+.text-white {
+    color: white;
+}
+
+.auth-form {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.hover\:underline:hover {
+    text-decoration: underline;
+}
+</style>
 {% endblock %} 
